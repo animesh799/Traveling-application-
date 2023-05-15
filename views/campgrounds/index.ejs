@@ -1,0 +1,57 @@
+<% layout('layouts/boilerplate') %>
+
+    <div id="cluster-map"></div>
+<!-- <form action="/campgrounds/search" method="GET">
+    <div class=" m-auto col-md-4 col-xl-6 p-5">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search Places" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button class="btn btn-primary" type="button" id="button-addon2">search</button>
+          </div>
+    </div>
+</form> -->
+
+
+
+    <h2>All Campgrounds</h2>
+
+    <!-- <a href="/campgrounds/new">Create new campground</a> -->
+    <% for(let camp of foundCampgrounds){%>
+
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <% if(camp.images[0]) {%>
+                        <img src="<%= camp.images[0].url %> " alt="" class="img-fluid" style="max-height:300px;width:350px;">
+                        <% }else{ %>
+                            <img src="" alt="" class="img-fluid">
+                            <% } %>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= camp.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%= camp.description %>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%= camp.location %>
+                            </small>
+                        </p>
+                        <a class="btn btn-primary" href="/campgrounds/<%= camp.id %> ">View <%= camp.title %> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% } %>
+
+
+            <script>
+                const mapboxtoken = '<%-process.env.MAP_BOX_TOKEN%>';
+                const campgrounds = { features:<%-JSON.stringify(foundCampgrounds) %>}
+            </script>
+
+            <script src="/javascripts/cluster.js"></script>
